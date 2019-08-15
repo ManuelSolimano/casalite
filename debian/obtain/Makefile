@@ -1,27 +1,21 @@
 .PHONY: all pack
 
-VERSION=5.4.1
-RELEASE=casa-release-${VERSION}-31.el7
+VERSION=5.4.0
+RELEASE=casa-release-${VERSION}-70.el7
 
 all: pack
 
 ${RELEASE}.tar.gz:
-	wget https://casa.nrao.edu/download/distro/linux/release/el7/${RELEASE}.tar.gz
+	wget https://casa.nrao.edu/download/distro/casa/release/el7/${RELEASE}.tar.gz
 
 ${RELEASE}/: ${RELEASE}.tar.gz
 	tar zxmvf ${RELEASE}.tar.gz
 
-casalite-${VERSION}/: ${RELEASE}/
-	cp -a ${RELEASE}/ casalite-${VERSION}/
-	rm -rf casalite-${VERSION}/Pipeline-CASA*
-	rm -rf casalite-${VERSION}/pipeline
-	rm -rf casalite-${VERSION}/etc/carta
-	rm -rf casalite-${VERSION}/data/alma
-	rm -rf casalite-${VERSION}/data/demo
-	rm -rf casalite-${VERSION}/share/doc
+casa-alma-pipeline-${VERSION}/: ${RELEASE}/
+	cp -a ${RELEASE}/ casa-alma-pipeline-${VERSION}/
 
-casalite-${VERSION}.tar.xz: casalite-${VERSION}/
-	tar Jcvf casalite-${VERSION}.tar.xz casalite-${VERSION}/
+casa-alma-pipeline-${VERSION}.tar.xz: casa-alma-pipeline-${VERSION}/
+	tar Jcvf casa-alma-pipeline-${VERSION}.tar.xz casa-alma-pipeline-${VERSION}/
 
-pack: casalite-${VERSION}.tar.xz
+pack: casa-alma-pipeline-${VERSION}.tar.xz
 	echo "done"
